@@ -135,7 +135,7 @@ public class ChatbotBottomSheetDialogFragment extends BottomSheetDialogFragment 
         Request request = new Request.Builder()
                 .url("\n" +
                         "https://api.openai.com/v1/chat/completions")
-                .header("Authorization", "Bearer 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")
+                .header("Authorization", "Bearer sk-fErBfxRFYbyq5_qTVZZz_hAs9ZYr8pwVoesgbYqE-vT3BlbkFJixZwXPbuETM4nKV8vZixAPUDmpimG1syM0wHU6iFcA")
                 .post(body)
                 .build();
         client.newCall(request).enqueue(new Callback() {
