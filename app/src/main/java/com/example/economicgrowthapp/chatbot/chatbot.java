@@ -63,13 +63,17 @@ public class chatbot extends AppCompatActivity {
         sendButton = findViewById(R.id.send_btn);
         messagesList = new ArrayList<>();
 
-        //setup recycler View
+        // Load the API key from the config.properties file
+        String apiKey = getApiKey();
+
+        // Setup recycler view
         messageAdapter = new MessageAdapter(messagesList);
         recyclerView.setAdapter(messageAdapter);
         LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setStackFromEnd(true);
         recyclerView.setLayoutManager(llm);
-// Load messages from SharedPreferences when the activity is created
+
+        // Load messages from SharedPreferences when the activity is created
         loadMessagesFromSharedPreferences();
 
         sendButton.setOnClickListener(new View.OnClickListener() {
@@ -78,14 +82,28 @@ public class chatbot extends AppCompatActivity {
                 String question = messageEditText.getText().toString().trim();
                 addToChat(question, Message.SENT_BY_ME);
                 messageEditText.setText("");
-                callAPI(question);
+                callAPI(question, apiKey);  // Pass the loaded API key here
                 // Fade out welcomeTextView
                 fadeOutView(welcomeTextView);
-                // Fade out macroconAIlogo
+                // Fade out macroconAI logo
                 fadeOutView(macroconAI);
             }
         });
     }
+
+    // Method to load API key from properties file
+    public String getApiKey() {
+        Properties properties = new Properties();
+        try {
+            InputStream inputStream = getApplicationContext().getAssets().open("config.properties");
+            properties.load(inputStream);
+            return properties.getProperty("OPENAI_API_KEY");
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null; // Handle error if file is not found
+        }
+    }
+
     void addToChat(String message, String sentBy) {
         runOnUiThread(new Runnable() {
             @Override
@@ -98,6 +116,7 @@ public class chatbot extends AppCompatActivity {
             }
         });
     }
+
     void saveMessagesToSharedPreferences() {
         SharedPreferences sharedPreferences = getSharedPreferences("chat_data", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -110,6 +129,7 @@ public class chatbot extends AppCompatActivity {
         editor.putString("messages", messagesJson);
         editor.apply();
     }
+
     // Load chat messages from SharedPreferences
     void loadMessagesFromSharedPreferences() {
         SharedPreferences sharedPreferences = getSharedPreferences("chat_data", Context.MODE_PRIVATE);
@@ -127,13 +147,16 @@ public class chatbot extends AppCompatActivity {
             recyclerView.smoothScrollToPosition(messageAdapter.getItemCount());
         }
     }
+
     void addResponse(String response) {
         addToChat(response, Message.SENT_BY_BOT);
         messagesList.remove(messagesList.size() - 1);
     }
-    void callAPI(String question) {
+
+    // Pass the apiKey as an argument to this method
+    void callAPI(String question, String apiKey) {
         messagesList.add(new Message("Typing...", Message.SENT_BY_BOT));
-        //okhttp
+        // okhttp
         JSONObject jsonBody = new JSONObject();
         try {
             jsonBody.put("model", "gpt-3.5-turbo");
@@ -150,15 +173,14 @@ public class chatbot extends AppCompatActivity {
         }
         RequestBody body = RequestBody.create(jsonBody.toString(), JSON);
         Request request = new Request.Builder()
-                .url("\n" +
-                        "https://api.openai.com/v1/chat/completions")
-                .header("Authorization", "Bearer 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")
+                .url("https://api.openai.com/v1/chat/completions")
+                .header("Authorization", "Bearer " + apiKey)  // Use the loaded API key here
                 .post(body)
                 .build();
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                addResponse("Failed to load response due to" + e.getMessage());
+                addResponse("Failed to load response due to " + e.getMessage());
             }
 
             @Override
@@ -177,11 +199,12 @@ public class chatbot extends AppCompatActivity {
                     }
 
                 } else {
-                    addResponse("Failed to load response due to" + response.body().string());
+                    addResponse("Failed to load response due to " + response.body().string());
                 }
             }
         });
     }
+
     private void fadeOutView(final View view) {
         Animation fadeOut = new AlphaAnimation(1, 0);
         fadeOut.setDuration(500); // Adjust duration as needed
@@ -189,6 +212,7 @@ public class chatbot extends AppCompatActivity {
             @Override
             public void onAnimationStart(Animation animation) {
             }
+
             @Override
             public void onAnimationEnd(Animation animation) {
                 view.setVisibility(View.GONE);

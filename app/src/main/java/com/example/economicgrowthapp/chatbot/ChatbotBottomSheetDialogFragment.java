@@ -54,7 +54,10 @@ public class ChatbotBottomSheetDialogFragment extends BottomSheetDialogFragment 
     OkHttpClient client = new OkHttpClient.Builder()
             .readTimeout(60, TimeUnit.SECONDS)
             .build();
+    String apiKey;
 
+    @Nullable
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.bottom_sheet_chatbot, container, false);
         recyclerView = view.findViewById(R.id.recycler_view);
@@ -65,6 +68,10 @@ public class ChatbotBottomSheetDialogFragment extends BottomSheetDialogFragment 
         bottom_layout = view.findViewById(R.id.bottom_layout);
         messagesList = new ArrayList<>();
         messageEditText.setVisibility(View.INVISIBLE);
+
+        // Load API key from config.properties
+        loadApiKey();
+
         // Setup recycler View
         messageAdapter = new MessageAdapter(messagesList);
         recyclerView.setAdapter(messageAdapter);
@@ -85,20 +92,27 @@ public class ChatbotBottomSheetDialogFragment extends BottomSheetDialogFragment 
                 fadeOutView(macroconAI);
             }
         });
-        // Initialize and set up your chatbot UI component here
-        // Retrieve data from the arguments bundle
-        // Toast.makeText(getContext(), searched_message, Toast.LENGTH_LONG).show();
+
         Bundle bundle = getArguments();
         if (bundle != null) {
             String searched_message = bundle.getString("searched_message");
-            // Display the toast message or use the data as needed
             messageEditText.setText("Give a detailed summary of as a reference with accurate reasons in Nigeria for the rise and fall " + searched_message + " \n");
-            // Click the send button automatically
             sendButton.performClick();
-            // Make the messageEditText visible
             messageEditText.setVisibility(View.VISIBLE);
         }
+
         return view;
+    }
+
+    private void loadApiKey() {
+        try {
+            Properties properties = new Properties();
+            InputStream inputStream = getContext().getAssets().open("config.properties");
+            properties.load(inputStream);
+            apiKey = properties.getProperty("OPENAI_API_KEY");
+        } catch (IOException e) {
+            Log.e(TAG, "Error loading API key: " + e.getMessage());
+        }
     }
 
     void addToChat(String message, String sentBy) {
@@ -118,7 +132,7 @@ public class ChatbotBottomSheetDialogFragment extends BottomSheetDialogFragment 
 
     void callAPI(String question) {
         messagesList.add(new Message("...", Message.SENT_BY_BOT));
-        //okhttp
+
         JSONObject jsonBody = new JSONObject();
         try {
             jsonBody.put("model", "gpt-3.5-turbo");
@@ -131,39 +145,38 @@ public class ChatbotBottomSheetDialogFragment extends BottomSheetDialogFragment 
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
+
         RequestBody body = RequestBody.create(jsonBody.toString(), JSON);
         Request request = new Request.Builder()
-                .url("\n" +
-                        "https://api.openai.com/v1/chat/completions")
-                .header("Authorization", "Bearer sk-fErBfxRFYbyq5_qTVZZz_hAs9ZYr8pwVoesgbYqE-vT3BlbkFJixZwXPbuETM4nKV8vZixAPUDmpimG1syM0wHU6iFcA")
+                .url("https://api.openai.com/v1/chat/completions")
+                .header("Authorization", "Bearer " + apiKey)
                 .post(body)
                 .build();
+
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(@androidx.annotation.NonNull Call call, @androidx.annotation.NonNull IOException e) {
-                addResponse("Failed to load response due to" + e.getMessage());
+                addResponse("Failed to load response due to " + e.getMessage());
             }
+
             @Override
             public void onResponse(@androidx.annotation.NonNull Call call, @androidx.annotation.NonNull Response response) throws IOException {
                 if (response.isSuccessful()) {
-                    JSONObject jsonObject = null;
                     try {
-                        String responseBody = response.body().string(); // Read response body
-                        jsonObject = new JSONObject(responseBody); // Parse response body to JSON object
+                        String responseBody = response.body().string();
+                        JSONObject jsonObject = new JSONObject(responseBody);
                         JSONArray jsonArray = jsonObject.getJSONArray("choices");
                         String result = jsonArray.getJSONObject(0)
                                 .getJSONObject("message")
                                 .getString("content");
                         addResponse(result.trim());
-                        // Log the response JSON
                         Log.d(TAG, "onResponse: " + responseBody);
                     } catch (JSONException e) {
                         throw new RuntimeException(e);
                     }
                 } else {
-                    // Log error message
                     Log.e(TAG, "Failed to load response due to " + response.body().string());
-                    addResponse("Failed to load response due to" + response.body().string());
+                    addResponse("Failed to load response due to " + response.body().string());
                 }
             }
         });
@@ -171,11 +184,10 @@ public class ChatbotBottomSheetDialogFragment extends BottomSheetDialogFragment 
 
     private void fadeOutView(final View view) {
         Animation fadeOut = new AlphaAnimation(1, 0);
-        fadeOut.setDuration(500); // Adjust duration as needed
+        fadeOut.setDuration(500);
         fadeOut.setAnimationListener(new Animation.AnimationListener() {
             @Override
-            public void onAnimationStart(Animation animation) {
-            }
+            public void onAnimationStart(Animation animation) {}
 
             @Override
             public void onAnimationEnd(Animation animation) {
@@ -183,8 +195,7 @@ public class ChatbotBottomSheetDialogFragment extends BottomSheetDialogFragment 
             }
 
             @Override
-            public void onAnimationRepeat(Animation animation) {
-            }
+            public void onAnimationRepeat(Animation animation) {}
         });
         view.startAnimation(fadeOut);
     }
