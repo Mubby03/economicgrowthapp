@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="textblack">#000000</color>
+    <color name="splashscreentexts">#535353</color>
+    <color name="login_signuplogin">#FEFAFD</color>
+    <color name="text_white">#F1F1F1</color>
+    <color name="fragment_backg">#F1F1F1</color>
+    <color name="splashscreen">#EDD94C</color>
+    <color name="grey">#DDDD</color>
+    <color name="grey2">#DDDD</color>
+    <color name="onboardbackgnd">#F1F1F1</color>
+    <color name="edttxtbackground">#E8FBFF</color>
+    <color name="txtbackgroundonbarding">#000D4A</color>
+    <color name="modelpagetextheading">#000D4A</color>
+    <color name="cardviewbrd">#D8FEE4</color>
+    <color name="secondtxtloginsplash">#90939A</color>
+    <color name="bluecolor">#0166F6</color>
+    <color name="bgLineColor">#606470</color>
+    <color name="colorstatus">#2D2F31</color>
+    <color name="edittextbackground">#EEEEF0</color>
+    <color name="increaseCDVlight">#FFFFFF</color>
+    <color name="decreaseCDVred">#FF0000</color>
+    <color name="increaseCDVGreen">#00FF00</color>
+    <color name="greyalternate">#F1F1F1</color>
+    <color name="blackgrey">#010101</color>
+    <color name="caramelalternate">#C7C7C7</color>
+
+
+</resources>
+

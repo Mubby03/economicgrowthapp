@@ -1,0 +1,18 @@
+<!-- bottom_nav_menu.xml -->
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/bottom_nav_macrodata"
+        android:icon="@drawable/newsicona"
+        android:title="" />
+    <item
+        android:id="@+id/bottom_nav_home"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="" />
+
+    <item
+        android:id="@+id/bottom_nav_macrocalc"
+        android:icon="@drawable/binoculars"
+        android:title="" />
+</menu>

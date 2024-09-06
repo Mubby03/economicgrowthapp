@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:forceDarkAllowed="false"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@drawable/macrocon"
+        android:label="@string/app_name"
+        android:roundIcon="@drawable/macrocon"
+        android:supportsRtl="true"
+        android:theme="@style/loginTheme"
+        tools:targetApi="21">
+        <activity
+            android:name=".chatbot.chatbot"
+            android:exported="false" />
+        <activity
+            android:name=".DetailsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".searchdata.searched_page"
+            android:exported="false" />
+        <activity
+            android:name=".NewssActivity"
+            android:exported="false" />
+        <activity
+            android:name=".searchdata.searcherPage"
+            android:exported="false" />
+        <activity
+            android:name=".landingpage.fragments.unemploymentdatamodelpage"
+            android:exported="false" />
+        <activity
+            android:name=".landingpage.fragments.inflationdatamodelpage"
+            android:exported="false" />
+        <activity
+            android:name=".landingpage.fragments.gdpdatamodelpage"
+            android:exported="false" />
+        <activity
+            android:name=".landingpage.settingspage"
+            android:exported="false"
+            android:theme="@style/loginTheme" />
+        <activity
+            android:name=".landingpage.landing_page"
+            android:exported="false"
+            android:theme="@style/loginTheme" /> <!-- TODO just inflate the new pages in the unemploumebt and the inflation along with the gdp pages using getIntent and so on -->
+        <activity
+            android:name=".onBoardingPages.onBoardingPage"
+            android:exported="false"
+            android:theme="@style/openingscreens" />
+        <activity
+            android:name=".logins.forgot_password"
+            android:exported="false"
+            android:theme="@style/openingscreens" />
+        <activity
+            android:name=".calculators.currencyExchangeActivity"
+            android:exported="false"
+            android:theme="@style/loginTheme" />
+        <activity
+            android:name=".logins.google_login"
+            android:exported="false"
+            android:theme="@style/openingscreens" />
+        <activity
+            android:name=".logins.register"
+            android:exported="false"
+            android:theme="@style/openingscreens" />
+        <activity
+            android:name=".logins.login"
+            android:exported="false"
+            android:theme="@style/openingscreens" />
+        <activity
+            android:name=".landingpage.splashscreen"
+            android:exported="true"
+            android:theme="@style/openingscreens">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
+    </application>
+
+</manifest>

@@ -1,0 +1,45 @@
+<resources>
+    <!-- Base application theme. -->
+
+    <style name="loginTheme" parent="Theme.Material3.Dark.NoActionBar">
+        <item name="colorPrimary">@color/splashscreen</item>
+        <item name="colorPrimaryVariant">@color/black</item>
+        <item name="colorOnPrimary">@android:color/transparent</item>
+        <item name="android:statusBarColor">#00424141</item>
+        <item name="android:windowContentTransitions">true</item>
+    </style>
+
+    <style name="openingscreens" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">#000D4A</item>
+        <item name="colorPrimaryVariant">@color/black</item>
+        <item name="colorOnPrimary">@android:color/transparent</item>
+        <item name="android:statusBarColor">#000D4A</item>
+        <item name="android:windowContentTransitions">true</item>
+        <item name="android:windowAnimationStyle">@style/animationsuccess</item>
+    </style>
+
+    <style name="animationsuccess">
+        <item name="android:windowEnterAnimation">@android:anim/slide_in_left</item>
+        <item name="android:windowExitAnimation">@android:anim/slide_out_right</item>
+    </style>
+
+    <style name="themecustom2" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorstatus</item>
+        <item name="colorPrimaryVariant">@color/black</item>
+        <item name="colorOnPrimary">@android:color/transparent</item>
+        <item name="android:statusBarColor">@color/cardviewbrd</item>
+        <item name="android:windowContentTransitions">true</item>
+    </style>
+    <style name="CollapsedTitle">
+        <item name="android:textColor">#F1F1F1</item>
+        <item name="android:textSize">25sp</item> <!-- Adjust the size as needed -->
+        <item name="android:textStyle">bold</item> <!-- Make the text bold -->
+    </style>
+
+    <style name="ExpandedTitle">
+        <item name="android:textColor">#F1F1F1</item>
+        <item name="android:textSize">20sp</item> <!-- Adjust the size as needed -->
+        <item name="android:textStyle"></item> <!-- Make the text bold -->
+    </style>
+
+</resources>

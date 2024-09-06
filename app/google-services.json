@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "536536973270",
+    "project_id": "ecoma-d897f",
+    "storage_bucket": "ecoma-d897f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:536536973270:android:ef11a907542e3f30856e77",
+        "android_client_info": {
+          "package_name": "com.example.economicgrowthapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "536536973270-512kkq89cp93eckave4p13o4ppdurs99.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDf5b-3OVEwt7nYXMSYykbekBF8Fnc1tMk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "536536973270-512kkq89cp93eckave4p13o4ppdurs99.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

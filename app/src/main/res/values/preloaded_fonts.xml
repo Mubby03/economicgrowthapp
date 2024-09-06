@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="preloaded_fonts" translatable="false">
+        <item>@font/aldrich</item>
+        <item>@font/alegreya_sc</item>
+        <item>@font/aleo_bold</item>
+        <item>@font/allerta</item>
+        <item>@font/audiowide</item>
+        <item>@font/b612</item>
+        <item>@font/bungee</item>
+        <item>@font/cagliostro</item>
+        <item>@font/candal</item>
+        <item>@font/cherry_cream_soda</item>
+        <item>@font/droid_sans</item>
+        <item>@font/economica</item>
+        <item>@font/iceland</item>
+        <item>@font/miriam_libre_bold</item>
+        <item>@font/noto_sans_bold</item>
+        <item>@font/numans</item>
+        <item>@font/roboto_thin</item>
+        <item>@font/sora_thin</item>
+        <item>@font/space_grotesk_light</item>
+    </array>
+</resources>
