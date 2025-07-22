@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.economicgrowthapp.R;
-import com.google.common.reflect.TypeToken;
+//import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
@@ -25,9 +25,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
@@ -74,7 +76,8 @@ public class chatbot extends AppCompatActivity {
         recyclerView.setLayoutManager(llm);
 
         // Load messages from SharedPreferences when the activity is created
-        loadMessagesFromSharedPreferences();
+//        loadMessagesFromSharedPreferences();
+
 
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -131,22 +134,22 @@ public class chatbot extends AppCompatActivity {
     }
 
     // Load chat messages from SharedPreferences
-    void loadMessagesFromSharedPreferences() {
-        SharedPreferences sharedPreferences = getSharedPreferences("chat_data", Context.MODE_PRIVATE);
-        String messagesJson = sharedPreferences.getString("messages", "");
-
-        // Convert JSON string back to a List<Message>
-        Gson gson = new Gson();
-        Type messageType = new TypeToken<List<Message>>() {
-        }.getType();
-        List<Message> loadedMessages = gson.fromJson(messagesJson, messageType);
-
-        if (loadedMessages != null) {
-            messagesList.addAll(loadedMessages);
-            messageAdapter.notifyDataSetChanged();
-            recyclerView.smoothScrollToPosition(messageAdapter.getItemCount());
-        }
-    }
+//    void loadMessagesFromSharedPreferences() {
+//        SharedPreferences sharedPreferences = getSharedPreferences("chat_data", Context.MODE_PRIVATE);
+//        String messagesJson = sharedPreferences.getString("messages", "");
+//
+//        // Convert JSON string back to a List<Message>
+//        Gson gson = new Gson();
+//        Type messageType = new TypeToken<List<Message>>() {
+//        }.getType();
+//        List<Message> loadedMessages = gson.fromJson(messagesJson, messageType);
+//
+//        if (loadedMessages != null) {
+//            messagesList.addAll(loadedMessages);
+//            messageAdapter.notifyDataSetChanged();
+//            recyclerView.smoothScrollToPosition(messageAdapter.getItemCount());
+//        }
+//    }
 
     void addResponse(String response) {
         addToChat(response, Message.SENT_BY_BOT);
